@@ -187,7 +187,7 @@ class Register extends React.Component {
               <Button
                 disabled={loading}
                 className={loading ? "loading" : ""}
-                color="orange"
+                color="purple"
                 fluid
                 size="large"
               >
