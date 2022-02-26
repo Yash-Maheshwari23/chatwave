@@ -8,7 +8,7 @@ import 'semantic-ui-css/semantic.css';
 import {BrowserRouter as Router, Switch, Route, withRouter} from 'react-router-dom'
 import firebase from 'firebase';
 
-
+import Spinner from './spinner';
 import {createStore} from 'redux';
 import { Provider, connect } from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
@@ -29,7 +29,7 @@ class Root extends React.Component{
     });
   }
   render(){
-    return (
+    return this.props.isLoading ? <Spinner/> : (
       
         <Switch>
           <Route exact path="/" component={App}/>
@@ -42,7 +42,11 @@ class Root extends React.Component{
   }
 } 
 
-const RootwithAuth = withRouter(connect(null, {setUser})(Root));
+const mapStateFromProps = state => ({
+  isLoading: state.user.isLoading
+});
+
+const RootwithAuth = withRouter(connect(mapStateFromProps, {setUser})(Root));
 ReactDOM.render(
 <Provider store={store}>
   <Router>
